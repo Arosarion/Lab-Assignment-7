@@ -45,14 +45,24 @@ void bubble_sort(int arr[], int n, int swaps[])
     }
 }
 
+// Print the number of swaps for each elememnt and the total 
 void swap_print(int arr[], int n, int swaps[]){
     int total = 0;
     for (int i = 0; i < n; i++)
     {
+        swaps[i] =  (swaps[i]);
         printf("%d: # of times %d is swapped\n", swaps[i], arr[i]);
         total += swaps[i];
     }
     printf("total # of swaps: %d\n", total/2);
+}
+//Initialize swap array to zero
+int initialize_swaps(int swaps[], int n){
+    for (int i = 0; i < n; i++)
+    {
+        swaps[i] = 0;   
+    }
+    return swaps[n];
 }
 
 
@@ -60,27 +70,12 @@ int main()
 {
     int array1[] = {97, 16, 45, 63, 13, 22, 7, 58, 72};
     int array2[] = {90, 80, 70, 60, 50, 40, 30, 20, 10};
-
     int n = sizeof(array1)/sizeof(array1[0]);
-
-    int bubble_swap_array1_count[n];
-    int bubble_swap_array2_count[n];
-    int selection_swap_array1_count[n];
-    int selection_swap_array2_count[n];
-
-    for (int i = 0; i < n; i++)
-    {
-        bubble_swap_array1_count[i] = 0;
-        bubble_swap_array2_count[i] = 0;
-        selection_swap_array1_count[i] = 0;
-        selection_swap_array2_count[i] = 0;
-        
-    }
-    
-
     int original_array1[n];
     int original_array2[n];
-    for (int i = 0; i < n; i++)
+    int swap[n];
+
+    for (int i = 0; i < n; i++)// Copy original array
     {
         original_array1[i] = array1[i];
         original_array2[i] = array2[i];
@@ -88,20 +83,25 @@ int main()
     
 
     //Bubble sort
-    bubble_sort(array1, n, bubble_swap_array1_count);
-    swap_print(array1, n, bubble_swap_array1_count);
+    swap[n] = initialize_swaps(swap, n);
+    bubble_sort(array1, n, swap);
+    swap_print(array1, n, swap);
     printf("\n");
 
-    bubble_sort(array2, n, bubble_swap_array2_count);
-    swap_print(array2, n, bubble_swap_array2_count);
+    swap[n] = initialize_swaps(swap, n);
+    bubble_sort(array2, n, swap);
+    swap_print(array2, n, swap);
     printf("\n");
+
     //Selection sort
-    slection_sort(original_array1, n, selection_swap_array1_count);
-    swap_print(original_array1, n, selection_swap_array1_count);
+    swap[n] = initialize_swaps(swap, n);
+    slection_sort(original_array1, n, swap);
+    swap_print(original_array1, n, swap);
     printf("\n");
-    
-    slection_sort(original_array2, n, selection_swap_array2_count);
-    swap_print(original_array2, n, selection_swap_array2_count);
+
+    swap[n] = initialize_swaps(swap, n);
+    slection_sort(original_array2, n, swap);
+    swap_print(original_array2, n, swap);
 
     return 0;
 }
